@@ -9,6 +9,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux';
 import { removeUser } from '../features/auth/authSlice';
+import DropdownWithLinks from './DropdownWithLinks';
+import { dropDownLinks } from '../utils';
 export default function Navbar() {
     const dispatch = useDispatch();
     const user = useSelector(state => {
@@ -31,6 +33,7 @@ export default function Navbar() {
             </Typography>
           {user.firstName ?
           <>
+            {user.manager_id && user.manager_id === user.id && <DropdownWithLinks dropDownTitle="Manager Actions" links={dropDownLinks}/>}
             <Typography>{user.firstName} {user.lastName}</Typography>
             <Button color="primary" style={{ marginLeft:"10px" ,backgroundColor:"white"}} onClick={handleLogout} >Logout</Button>
           </> 
