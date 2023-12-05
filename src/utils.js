@@ -4,7 +4,8 @@ export const dropDownLinks = [
     {title : "Generate Reports" , link: "/report"} ,
     {title : "Add Team Members" , link : "/addTeamMember"} ,
     {title : "Remove Team Members" , link : "/removeTeamMember"} ,
-    {title : "Promote Team Members" , link : "/promoteTeamMember"} 
+    {title : "Promote Team Members" , link : "/promoteTeamMember"} ,
+    {title : "Individual Details" , link : "/individualDetails"}
 ]
 
 export function convertToDateISOString(dateObject) {

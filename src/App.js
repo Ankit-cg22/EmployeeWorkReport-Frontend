@@ -9,6 +9,9 @@ import AddTeamMember from './components/AddTeamMember';
 import RemoveTeamMember from './components/RemoveTeamMember';
 import PromoteTeamMember from './components/PromoteTeamMember';
 import GenerateReport from './components/GenerateReport';
+import DaywiseReport from './components/IndiviudalDetail';
+import IndividualDetails from './components/IndividualDetails';
+import IndividualDetail from './components/IndiviudalDetail';
 
 function App() {
   return (
@@ -23,6 +26,8 @@ function App() {
           <Route exact path="/removeTeamMember" Component={RemoveTeamMember}/>
           <Route exact path="/promoteTeamMember" Component={PromoteTeamMember}/>
           <Route exact path="/report" Component={GenerateReport}/>
+          <Route exact path="/individualDetail/:userId" Component={IndividualDetail}/>
+          <Route exact path="/individualDetails" Component={IndividualDetails}/>
         </Routes>
       </Router>
     </div>
