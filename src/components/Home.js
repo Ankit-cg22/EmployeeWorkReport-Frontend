@@ -37,7 +37,7 @@ export default function Home() {
                 <div style={{}}>
                   <Paper style={{width : "50%" , margin:"auto" , marginTop:"10px" , display:"flex" , justifyContent:"space-around" , alignItems:"center" , padding:"10px"}}>
                     <Typography>Work Report Form {f.date}</Typography>
-                    <a href={`http://localhost:3000/form/${f.formId}`}>
+                    <a href={`/form/${f.formId}`}>
                       <Button variant="contained">Fill</Button>
                     </a>
                   </Paper>

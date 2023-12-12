@@ -62,5 +62,6 @@ export default function IndividualDetail() {
           {data?.length>0 && <ActivityList data={data}/>}
         </Box>
       </Container>
+      
   )
 }

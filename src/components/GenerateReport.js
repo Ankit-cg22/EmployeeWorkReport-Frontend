@@ -69,6 +69,16 @@ const GenerateReport = () => {
               title: {
               text: 'Time distribution over categories(in hours)',
               },
+              plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.y} hours'
+                    }
+                }
+              },
               series: [
               {
                   name: 'Categories',
@@ -96,9 +106,10 @@ const GenerateReport = () => {
                 reversed: true,
                 },
                 plotOptions: {
-                series: {
-                    stacking: 'normal',
-                },
+                  series: {
+                      stacking: 'normal',
+                  },
+                  
                 },
                 series: vals,
             })
