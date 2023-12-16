@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Paper } from '@mui/material';
+import { Box, Button, CircularProgress, Container, Grid, Paper } from '@mui/material';
 import { LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -9,12 +9,14 @@ import axios from 'axios'
 import ActivityList from './ActivityList';
 
 export default function IndividualDetail() {
+    const [loading , setLoading] = useState(false)
     const {userId} = useParams();
     const [data , setData] = useState([])
     const handleFormSubmit = (e)=> {
       e.preventDefault()
       console.log(userId)
       const dateStr = convertToDateISOString(date)
+      setLoading(true)
       axios.post(`${BASE_BACKEND_URL}/api/analytics/dayWiseDetails/${userId}` ,
         {date : dateStr}
       )
@@ -24,6 +26,9 @@ export default function IndividualDetail() {
       })
       .catch(err=>{
         console.log(err)
+      })
+      .finally(()=>{
+        setLoading(false)
       })
     }
     const [date, setDate] = useState(null);
@@ -35,7 +40,7 @@ export default function IndividualDetail() {
             <Grid item xs={12}>
               <Box p={2}>
                 <form onSubmit={handleFormSubmit} style={{ width: '100%' }}>
-                  
+
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DatePicker']}>
                       <StaticDatePicker 
@@ -50,7 +55,12 @@ export default function IndividualDetail() {
                     </LocalizationProvider>
                   
                   <Button type="submit" variant="contained" color="primary" fullWidth style={{margin:"10px 0px"}}>
-                    Submit
+                    
+                    {loading ?
+                    <CircularProgress size={25} style={{color : "white"}}/>
+                    :
+                    "Submit"
+                    }
                   </Button>
                 </form>
               </Box>

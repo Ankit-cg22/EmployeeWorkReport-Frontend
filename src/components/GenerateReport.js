@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {  Button, MenuItem, Select, InputLabel, FormControl, Container, Typography, Grid, Box, FormControlLabel, Checkbox, Paper } from '@mui/material';
+import {  Button, MenuItem, Select, InputLabel, FormControl, Container, Typography, Grid, Box, FormControlLabel, Checkbox, Paper, CircularProgress } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -11,7 +11,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 
 const GenerateReport = () => {
-
+    const [loading , setLoading] = useState(false)
     const [reportData , setReportData] = useState({})
 
     const chartData =[]
@@ -152,6 +152,7 @@ const GenerateReport = () => {
       console.log('Start Date:', sDate);
       console.log('End Date:', eDate);
       console.log('Selected User IDs:', selectedUserIds);
+      setLoading(true)
 
       axios.post(`${BASE_BACKEND_URL}/api/analytics/getReport` , {
         "userIdList" : selectedUserIds ,
@@ -166,6 +167,9 @@ const GenerateReport = () => {
       })
       .catch(err =>{
         console.log(err)
+      })
+      .finally(()=>{
+        setLoading(false)
       })
       
     };
@@ -219,7 +223,12 @@ const GenerateReport = () => {
                     ))}
                   </Box>
                   <Button type="submit" variant="contained" color="primary" fullWidth style={{margin:"10px 0px"}}>
-                    Submit
+                    {loading ? 
+                    <CircularProgress size={25} style={{color : "white"}}/>
+                    :
+                    <div>Submit</div>
+                    }
+                   
                   </Button>
                 </form>
               </Box>

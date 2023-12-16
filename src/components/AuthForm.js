@@ -8,6 +8,7 @@ import {
   MenuItem,
   Typography,
   Container,
+  CircularProgress,
 } from '@mui/material';
 import axios from 'axios';
 import { BASE_BACKEND_URL } from '../utils';
@@ -20,6 +21,7 @@ const WorkHourOptions = Array.from({ length: 24 }, (_, i) => ({
   label: i.toString().padStart(2, '0') + ':00',
 }));
 const AuthForm = () => {
+  const [loading , setLoading] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(true);
@@ -45,6 +47,7 @@ const AuthForm = () => {
     // Handle form submission logic
     console.log('Form data submitted:', formData);
     if(isLogin){
+      setLoading(true)
       axios.post(`${BASE_BACKEND_URL}/api/user/login` , formData)
       .then(res => {
         console.log(res)
@@ -55,8 +58,14 @@ const AuthForm = () => {
       .catch(err => {
         console.log(err)
       })
+      .finally(()=>{
+        setLoading(false)
+
+      })
     }
     else{
+      setLoading(true)
+      
       axios.post(`${BASE_BACKEND_URL}/api/user/register` , formData)
       .then(res => {
         const user = res.data
@@ -66,6 +75,9 @@ const AuthForm = () => {
       })
       .catch(err => {
         console.log(err)
+      })
+      .finally(()=>{
+        setLoading(false)
       })
     }
   };
@@ -171,7 +183,14 @@ const AuthForm = () => {
           </FormControl>
         )}
         <Button type="submit" fullWidth variant="contained" color="primary" style={{ marginBottom:"15px"}}>
-          {isLogin ? 'Login' : 'Register'}
+          {
+            loading ? 
+            <CircularProgress size={25} style={{color : "white"}}/>
+
+            :
+            <div>{isLogin ? 'Login' : 'Register'}</div>
+          }
+
         </Button>
         {/* <Typography
           variant="body2"
